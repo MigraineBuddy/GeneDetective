@@ -27,7 +27,7 @@ warranty obviously not included.
 """
 
 
-import sys
+import sys, argparse
 
 def write_dict_to_file(dictionary, output_file):
     with open(output_file, "w") as file:
@@ -65,19 +65,17 @@ def compare_and_replace_dicts(dict1, dict2):
     return result_dict
 
 def main():
-    if len(sys.argv) != 4:
-        print("Usage: command file1 file2 output")
-        return
+    parser = argparse.ArgumentParser(description="Compare and replace dictionaries")
+    parser.add_argument("file1", help="Path to the first file")
+    parser.add_argument("file2", help="Path to the second file")
+    parser.add_argument("output", help="Path to the output file")
+    args = parser.parse_args()
 
-    file1_path = sys.argv[1]
-    file2_path = sys.argv[2]
-    output_path = sys.argv[3]
-
-    dict1 = extract_to_dictionary(file1_path)
-    dict2 = extract_to_dictionary(file2_path)
+    dict1 = extract_to_dictionary(args.file1)
+    dict2 = extract_to_dictionary(args.file2)
     output = compare_and_replace_dicts(dict1, dict2)
     
-    write_dict_to_file(output, output_path)
+    write_dict_to_file(output, args.output)
 
 
 

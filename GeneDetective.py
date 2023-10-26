@@ -31,9 +31,9 @@ import argparse
 
 
 def write_dict_to_file(dictionary, output_file):
+    output_lines = [f"{key} {value}\n" for key, value in dictionary.items()]
     with open(output_file, "w") as file:
-        for key, value in dictionary.items():
-            file.write(f"{key} {value}\n")
+        file.writelines(output_lines)
 
 
 def change_dict_key(dict, old_key, new_key, default_value=None):
@@ -59,12 +59,12 @@ def extract_to_dictionary(file_path):
 
 def compare_and_replace_dicts(dict1, dict2):
     result_dict = dict1.copy()  # Create a copy of the first dictionary
-
+    keys_set = set(dict1.keys())  # Create a set of keys from dict1
     for key, value in dict2.items():
-        if key in result_dict:
-            result_dict[key] = value  # Replace the definition
+        if key in keys_set:
+            result_dict[key] = value
             new_key = "[x] " + key
-            change_dict_key(result_dict, key, new_key)  # Marks changed key
+            change_dict_key(result_dict, key, new_key)
 
     return result_dict
 

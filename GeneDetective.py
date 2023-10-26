@@ -59,7 +59,7 @@ def extract_to_dictionary(file_path):
 
 def compare_and_replace_dicts(dict1, dict2):
     result_dict = dict1.copy()  # Create a copy of the first dictionary
-    keys_set = set(dict1.keys())  # Create a set of keys from dict1
+    keys_set = set(dict1.keys())   # Create a set of keys from dict1
     for key, value in dict2.items():
         if key in keys_set:
             result_dict[key] = value
